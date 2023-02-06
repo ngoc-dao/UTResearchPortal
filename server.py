@@ -16,7 +16,6 @@ def index():
 @app.route('/newaccount', methods=['POST'])
 def newaccount():
     account = request.json
-    print(account)
     validAccount = ac.verifyNewAccount(account)
     if (not validAccount):
         return {

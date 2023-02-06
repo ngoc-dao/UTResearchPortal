@@ -50,7 +50,6 @@ const Home = () => {
       "password" : ps,
       "usertype" : us,
     }
-    console.log(account);
 
     axios.post("/newaccount", account).then(
       res => {
