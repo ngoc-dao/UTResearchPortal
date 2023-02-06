@@ -3,6 +3,7 @@ from flask import Flask, redirect, url_for, request
 from flask.helpers import send_from_directory
 import os
 import accountcreation as ac
+import databasefunctions as df
 
 # initialize Flask application
 app = Flask(__name__, static_folder="front_end/build", static_url_path="/")
@@ -15,6 +16,7 @@ def index():
 @app.route('/newaccount', methods=['POST'])
 def newaccount():
     account = request.json
+    print(account)
     validAccount = ac.verifyNewAccount(account)
     if (not validAccount):
         return {
@@ -22,9 +24,7 @@ def newaccount():
         }
 
     # TODO - valid accounts should be stored in database
-    return {
-        "error" : False,
-    }
+    return df.storeNewAccountInDB(account)
 
 if __name__ == "__main__":
    p = int(os.environ.get("PORT", 5000))

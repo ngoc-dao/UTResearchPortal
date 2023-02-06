@@ -34,15 +34,19 @@ def storeNewAccountInDB(account):
                 "applications" : {},
             }
             col.insert_one(student)
-            return True
+            return {
+                "error" : False,
+            }
         else:
             if (doc["password"] == password_encrypt):
                 return {
-                    "error" : "You have an existing account. Please sign in with your EID and password."
+                    "error" : True,
+                    "message" : "You have an existing account. Please sign in with your EID and password."
                 }
             else:
                 return {
-                    "error" : "There is an account tied to this EID."
+                    "error" : True,
+                    "message" : "There is an account tied to this EID."
                 }
     else:
         col = db["faculty"]
@@ -59,15 +63,19 @@ def storeNewAccountInDB(account):
                 "jobs" : {},
             }
             col.insert_one(faculty)
-            return True
+            return {
+                "error" : False,
+            }
         else:
             if (doc["password"] == password_encrypt):
                 return {
-                    "error" : "You have an existing account. Please sign in with your EID and password."
+                    "error" : True,
+                    "message" : "You have an existing account. Please sign in with your EID and password."
                 }
             else:
                 return {
-                    "error" : "There is an account tied to this EID."
+                    "error" : True,
+                    "message" : "There is an account tied to this EID."
                 }
 
 # encrypt EID and password when storing in database

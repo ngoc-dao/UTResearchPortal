@@ -11,7 +11,7 @@ const Home = () => {
   const [email, setEmail] = useState();
   const [eid, setEid] = useState();
   const [password, setPassword] = useState();
-  const [userType, setUserType] = useState();
+  const [userType, setUserType] = useState("Student");
   const [error, setError] = useState(); 
 
   const navigate = useNavigate();           /* used to navigate user upon login */
@@ -50,12 +50,16 @@ const Home = () => {
       "password" : ps,
       "usertype" : us,
     }
+    console.log(account);
 
     axios.post("/newaccount", account).then(
       res => {
         // set errors
         if (res.data["error"] === true) {
           setError("Please provide proper fields to create an account");
+          if ("message" in res.data) {
+            setError(res.data["message"]);
+          }
         } else {
           setError("");
           // TODO - navigate to user dashboard OR ask user to sign in with new account
@@ -119,7 +123,7 @@ const Home = () => {
       <select
         onChange={(event) => setUserType(event.target.value)}
       >
-        <option value="Student"> Student </option>
+        <option selected value="Student"> Student </option>
         <option value="Faculty"> Faculty </option>
       </select>
       <p></p>
