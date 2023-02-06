@@ -4,10 +4,6 @@ from dotenv import load_dotenv
 import os
 import certifi
 
-# global variables for encryption
-numPositions = 15
-direction = 1
-
 def storeNewAccountInDB(account):
     eid = account["eid"]
     password = account["password"]
@@ -82,19 +78,20 @@ def storeNewAccountInDB(account):
 def generateEncryption(inputText):
     encryptedText = list(inputText)
     encryptedText.reverse()
+    load_dotenv()
     
     index = 0
     for ch in encryptedText:
         currASCII = ord(ch)
         times = 0
-        if (direction < 0):
-            while (times < numPositions):
+        if (int(os.getenv("ENCRYPTION_DIRECTION")) < 0):
+            while (times < int(os.getenv("ENCRYPTION_NUM_POSITIONS"))):
                 currASCII -= 1
                 if (currASCII < 34):
                     currASCII = 126
                 times += 1
         else:
-            while (times < numPositions):
+            while (times < int(os.getenv("ENCRYPTION_NUM_POSITIONS"))):
                 currASCII += 1
                 if (currASCII > 126):
                     currASCII = 34
