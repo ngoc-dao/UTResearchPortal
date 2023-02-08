@@ -25,6 +25,11 @@ def newaccount():
     # TODO - valid accounts should be stored in database
     return df.storeNewAccountInDB(account)
 
+@app.route('/studentlogin', methods=['POST'])
+def studentlogin():
+    user = request.json
+    return df.tryLogin(user)
+
 if __name__ == "__main__":
    p = int(os.environ.get("PORT", 5000))
    app.run(debug=True, port=p, host='0.0.0.0')
