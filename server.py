@@ -28,7 +28,12 @@ def newaccount():
 @app.route('/studentlogin', methods=['POST'])
 def studentlogin():
     user = request.json
-    return df.tryLogin(user)
+    return df.tryLogin(user, True)
+
+@app.route('/facultylogin', methods=['POST'])
+def facultylogin():
+    user = request.json
+    return df.tryLogin(user, False)
 
 if __name__ == "__main__":
    p = int(os.environ.get("PORT", 5000))

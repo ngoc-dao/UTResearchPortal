@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 import os
 import certifi
 
-def tryLogin(user):
+def tryLogin(user, isStudent):
     eid = user["eid"]
     password = user["password"]
     eid_encrypt = generateEncryption(eid)
@@ -15,7 +15,11 @@ def tryLogin(user):
     client = MongoClient(os.getenv('MONGO_CLIENT'), tlsCAFile=cert)
 
     db = client["ut-research-portal"]
-    col = db["students"]
+    col = None
+    if (isStudent == True):
+        col = db["students"]
+    else:
+        col = db["faculty"]
     query = {"eid" : eid_encrypt}
     doc = col.find_one(query)
 
