@@ -36,7 +36,11 @@ const FacultyLogin = (props) => {
             localStorage.setItem('token-info', JSON.stringify(user));
             console.log("LOGIN SUCCESS");
 
+            // set user details
+            props.setUser(user);
+
             // TODO - navigate to faculty dashboard
+            navigate('/facultydashboard')
           }
         }
       )

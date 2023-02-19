@@ -36,7 +36,11 @@ const StudentLogin = (props) => {
             localStorage.setItem('token-info', JSON.stringify(user));
             console.log("LOGIN SUCCESS");
 
+            // set user details
+            props.setUser(user);
+
             // TODO - navigate to student dashboard
+            navigate('/studentdashboard');
           }
         }
       )
