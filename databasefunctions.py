@@ -4,6 +4,40 @@ from dotenv import load_dotenv
 import os
 import certifi
 
+def tryLogin(user, isStudent):
+    eid = user["eid"]
+    password = user["password"]
+    eid_encrypt = generateEncryption(eid)
+    password_encrypt = generateEncryption(password)
+
+    cert = certifi.where()
+    load_dotenv()
+    client = MongoClient(os.getenv('MONGO_CLIENT'), tlsCAFile=cert)
+
+    db = client["ut-research-portal"]
+    col = None
+    if (isStudent == True):
+        col = db["students"]
+    else:
+        col = db["faculty"]
+    query = {"eid" : eid_encrypt}
+    doc = col.find_one(query)
+
+    if (doc == None):
+        return {
+            "error" : True,
+            "message" : "There is no account tied to this EID. Please try again.",
+        }
+    if (doc["password"] != password_encrypt):
+        return {
+            "error" : True,
+            "message" : "The given password is incorrect. Please try again.",
+        }
+    return {
+        "error" : False,
+    }
+
+
 def storeNewAccountInDB(account):
     eid = account["eid"]
     password = account["password"]
