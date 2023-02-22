@@ -35,6 +35,14 @@ def facultylogin():
     user = request.json
     return df.tryLogin(user, False)
 
+@app.route('/getpositions')
+def getpositions():
+    positions = df.getPositions()
+    print(positions)
+    return {
+        "positions" : positions
+    }
+
 if __name__ == "__main__":
    p = int(os.environ.get("PORT", 5000))
    app.run(debug=True, port=p, host='0.0.0.0')

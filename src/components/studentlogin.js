@@ -48,8 +48,8 @@ const StudentLogin = (props) => {
   
         return (
           <div className="App">
-              <h1> Student Sign In </h1>
-              <p> If you have an account, please login here. </p>
+              <h1 class='text-4xl p-5 font-semibold'> Student Sign In </h1>
+              <p class='text-1xl p-3 italic'> If you have an account, please login here. </p>
               
               <TextField 
                 label="EID" 
@@ -63,7 +63,7 @@ const StudentLogin = (props) => {
                 type="password" 
                 onChange={(event) => setPassword(event.target.value)}> 
               </TextField>
-              <p></p>
+              <p class='p-3'></p>
               <Button 
                 color='primary' 
                 onClick={tryLogin}

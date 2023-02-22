@@ -2,12 +2,11 @@
 import React, { Component, useEffect, useState } from 'react';
 import { useNavigate, Routes, Route, Outlet } from 'react-router-dom';
 import { Button } from '@mui/material';
-// import Navbars from './Navbar';
-// import Projects from './user_projects';
-// import Datasets from './user_datasets';
+import axios from 'axios';
+import ResearchPositionComponent from './researchpositioncomponent';
 
 const StudentDashboard = (props) => {
-
+  const [positions, setPositions] = useState([]);
   const navigate = useNavigate();         /* used to navigate user upon logout */
   // const [data, setData] = useState(null)  /* metadata */
 
@@ -27,11 +26,31 @@ const StudentDashboard = (props) => {
   //   )
   // });
 
+  useEffect(() => {
+    axios.get("/getpositions").then(
+        res => {
+          const pos = res.data['positions'];
+          setPositions(pos);
+          console.log(positions);
+        }
+    )
+  });
+
       return (
         <div className="App">
             {/* <Navbars /> */}
-          <h1> Welcome to your Dashboard {props.user["eid"]}! </h1>
-          <h2> Here you can view your projects and datasets. </h2>
+          <h1 class='text-4xl p-5 font-semibold'> Welcome to your Dashboard {props.user["eid"]}! </h1>
+
+          {
+            positions.length === 0 ? (
+              <p>Fetching research positions...</p>
+            ) : (
+              positions.map(pos => (
+                <ResearchPositionComponent pos={pos} />
+              ))
+            )
+          }
+
           <Button 
             color={'secondary'} 
             variant={'contained'}

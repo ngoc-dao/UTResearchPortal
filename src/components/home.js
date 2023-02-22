@@ -69,8 +69,8 @@ const Home = () => {
 
   return (
     <div className="App">
-      <h1> Welcome to the UT Research Portal </h1>
-      <p> Sign in to the portal by first selecting whether you are a student or faculty member </p>
+      <h1 class='text-4xl p-5 font-semibold'> Welcome to the UT Research Portal </h1>
+      <p class='text-1xl p-3 italic'> Sign in to the portal by first selecting whether you are a student or faculty member </p>
       <Button
         color='primary'
         onClick={studentLogin}
@@ -78,7 +78,6 @@ const Home = () => {
       >
         Student
       </Button>
-      <p></p>
       <Button
         color='primary'
         onClick={facultyLogin}
@@ -87,7 +86,7 @@ const Home = () => {
         Faculty
       </Button>
       <p></p>
-      <p> If you do not have an account, please create one below </p>
+      <p class='p-3 italic'> If you do not have an account, please create one below </p>
       <TextField 
         label="First Name" 
         variant="filled" 
@@ -121,11 +120,12 @@ const Home = () => {
       <br></br>
       <select
         onChange={(event) => setUserType(event.target.value)}
+        class='border-black'
       >
         <option selected value="Student"> Student </option>
         <option value="Faculty"> Faculty </option>
       </select>
-      <p></p>
+      <p class='p-3'></p>
       <Button
         color='primary'
         onClick={accountCreation}
@@ -134,7 +134,7 @@ const Home = () => {
         Submit
       </Button>
       <p></p>
-      <p> {error} </p>
+      <p class='p-3'> {error} </p>
       <p></p>
     </div>
   );

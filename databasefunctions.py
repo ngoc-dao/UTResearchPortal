@@ -107,6 +107,19 @@ def storeNewAccountInDB(account):
                     "error" : True,
                     "message" : "There is an account tied to this EID."
                 }
+            
+def getPositions():
+    # connect to DB
+    cert = certifi.where()
+    load_dotenv()
+    client = MongoClient(os.getenv('MONGO_CLIENT'), tlsCAFile=cert)
+    db = client["ut-research-portal"]
+    col = db["positions"]
+    positions = []
+    for doc in col.find():
+        positions.append(doc)
+    return positions
+    
 
 # encrypt EID and password when storing in database
 def generateEncryption(inputText):
