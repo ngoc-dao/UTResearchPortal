@@ -5,7 +5,7 @@ import { Button } from '@mui/material';
 
 const ResearchPositionComponent = (props) => (
     <div class='flex bg-white shadow-lg m-4 p-4 bg-cyan-100'>
-        <div class='align-middle text-xl'>
+        <div class='align-middle text-xl font-bold'>
             <h2>{props.pos['position']}</h2>
         </div>
 
@@ -20,7 +20,7 @@ const ResearchPositionComponent = (props) => (
               )
             }
 
-            <h3>Posted {props.pos['date_posted']} · Min GPA Required: {props.pos['minimum_gpa']}</h3>
+            <h3>Posted {props.pos['date_posted']} · GPA: {props.pos['minimum_gpa']}+</h3>
         </div>
 
         <div class='align-middle'>

@@ -115,6 +115,8 @@ def getPositions():
     client = MongoClient(os.getenv('MONGO_CLIENT'), tlsCAFile=cert)
     db = client["ut-research-portal"]
     col = db["positions"]
+
+    # return all positions
     positions = []
     for doc in col.find():
         positions.append(doc)

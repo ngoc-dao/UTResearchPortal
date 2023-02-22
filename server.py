@@ -38,7 +38,6 @@ def facultylogin():
 @app.route('/getpositions')
 def getpositions():
     positions = df.getPositions()
-    print(positions)
     return {
         "positions" : positions
     }
