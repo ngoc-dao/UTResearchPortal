@@ -7,6 +7,7 @@ import StudentLogin from './components/studentlogin'
 import FacultyLogin from './components/facultylogin'
 import StudentDashboard from './components/studentdashboard';
 import FacultyDashboard from './components/facultydashboard';
+import NewPosition from './components/newposition';
 
 
 function App() {
@@ -58,6 +59,13 @@ function App() {
               user={user}
               setUser={(i) => setUser(i)}
             />
+          }>
+        </Route>
+
+        <Route 
+          path='/newposition'
+          element={
+            <NewPosition />
           }>
         </Route>
       </Routes>

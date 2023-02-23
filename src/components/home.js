@@ -21,7 +21,7 @@ const Home = () => {
   };
 
   function facultyLogin() {
-    navigate('facultylogin')
+    navigate('/facultylogin')
   };
 
   function accountCreation() {
