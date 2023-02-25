@@ -2,14 +2,11 @@
 import React, { Component, useEffect, useState } from 'react';
 import { useNavigate, Routes, Route, Outlet } from 'react-router-dom';
 import { Button } from '@mui/material';
-// import Navbars from './Navbar';
-// import Projects from './user_projects';
-// import Datasets from './user_datasets';
+import axios from 'axios';
 
 const FacultyDashboard = (props) => {
-
-  const navigate = useNavigate();         /* used to navigate user upon logout */
-  // const [data, setData] = useState(null)  /* metadata */
+  const [positions, setPositions] = useState([]);
+  const navigate = useNavigate();
 
   /* handles user logout */
   function logout() {
@@ -17,27 +14,33 @@ const FacultyDashboard = (props) => {
     navigate('/');
   }
 
-  // useEffect(() => {
-  //   fetch("/datasets").then(
-  //     res => res.json
-  //   ).then(
-  //     data => {
-  //       setData(data)
-  //     }
-  //   )
-  // });
+  function newPosition() {
+    navigate('/newposition');
+  }
 
       return (
         <div className="App">
             {/* <Navbars /> */}
-          <h1> Welcome to your Dashboard {props.user["eid"]}! </h1>
-          <h2> Here you can view your projects and datasets. </h2>
-          <Button 
-            color={'secondary'} 
+          <h1 class='text-4xl p-5 font-semibold'> 
+          Welcome to your Dashboard {props.user["eid"]}!
+          </h1>
+
+          <Button
+            color={'secondary'}
+            variant={'contained'}
+            onClick={newPosition}
+          >
+            Add New Position
+          </Button>
+
+          <p class='p-3' />
+
+          <Button
+            color={'secondary'}
             variant={'contained'}
             onClick={logout}
           > 
-            Logout 
+            Logout
           </Button>
           {/* <Outlet /> */}
         </div>
