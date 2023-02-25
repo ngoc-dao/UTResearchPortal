@@ -5,10 +5,6 @@ import os
 import certifi
 from datetime import date
 
-student_id = 1
-faculty_id = 1
-position_id = 1
-
 def tryLogin(user, isStudent):
     eid = user["eid"]
     password = user["password"]
@@ -44,9 +40,6 @@ def tryLogin(user, isStudent):
 
 
 def storeNewAccountInDB(account):
-    global student_id
-    global faculty_id
-
     eid = account["eid"]
     password = account["password"]
     eid_encrypt = generateEncryption(eid)
@@ -57,6 +50,11 @@ def storeNewAccountInDB(account):
     client = MongoClient(os.getenv('MONGO_CLIENT'), tlsCAFile=cert)
 
     db = client["ut-research-portal"]
+    id_col = db["ids"]
+    query = {"_id": 1}
+    doc = id_col.find_one(query)
+    student_id = doc["student_id"]
+    faculty_id = doc["faculty_id"]
     if (account["usertype"] == "Student"):
         col = db["students"]
         query = {"eid" : eid_encrypt}
@@ -74,6 +72,9 @@ def storeNewAccountInDB(account):
             }
             col.insert_one(student)
             student_id += 1
+            query = {"_id" : 1}
+            set = {'$set' : {'student_id' : student_id}}
+            id_col.update_one(query, set)
             return {
                 "error" : False,
             }
@@ -100,11 +101,14 @@ def storeNewAccountInDB(account):
                 "email" : account["email"],
                 "eid" : eid_encrypt,
                 "password" : password_encrypt,
-                "jobs" : {},
+                "jobs" : [],
                 "_id": faculty_id,
             }
             col.insert_one(faculty)
             faculty_id += 1
+            query = {"_id" : 1}
+            set = {'$set' : {'faculty_id' : faculty_id}}
+            id_col.update_one(query, set)
             return {
                 "error" : False,
             }
@@ -135,13 +139,17 @@ def getPositions():
     return positions
 
 def addNewPosition(new_position):
-    global position_id
-
     # connect to DB
     cert = certifi.where()
     load_dotenv()
     client = MongoClient(os.getenv('MONGO_CLIENT'), tlsCAFile=cert)
     db = client["ut-research-portal"]
+
+    # get position_id
+    id_col = db["ids"]
+    id_query = {"_id": 1}
+    doc = id_col.find_one(id_query)
+    position_id = doc["position_id"]
 
     # obtain the faculty member
     fac_col = db["faculty"]
@@ -168,6 +176,10 @@ def addNewPosition(new_position):
     job_list.append(job_id)
     new_tot = {'$set' : {'jobs' : job_list}}
     fac_col.update_one(query, new_tot)
+
+    # update ids
+    set = {'$set' : {'position_id' : position_id}}
+    id_col.update_one(id_query, set)
 
     # return success
     return {

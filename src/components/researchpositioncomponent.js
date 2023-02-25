@@ -6,7 +6,7 @@ import { Button } from '@mui/material';
 const ResearchPositionComponent = (props) => (
     <div class='flex bg-white shadow-lg m-4 p-4 bg-cyan-100'>
         <div class='align-middle text-xl font-bold'>
-            <h2>{props.pos['position']}</h2>
+            <h1>{props.pos['position']}</h1>
         </div>
 
         <div class='ml-2'>
@@ -14,7 +14,7 @@ const ResearchPositionComponent = (props) => (
             
             {
               props.pos['majors'].length === 0 ? (
-                <h3>All majors</h3>
+                <h3><b>All majors</b></h3>
               ) : ( 
                 <h3><b>Majors: </b>{props.pos['majors'].toString()}</h3>
               )

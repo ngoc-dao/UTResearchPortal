@@ -29,7 +29,7 @@ const NewPosition = (props) => {
   const [deadline, setDeadline] = useState("");
   const [additionalQuestions, setAdditionalQuestions] = useState([]);
   const [newQ, setNewQ] = useState("");
-  const [majors, setMajors] = useState({optionSelected: null});
+  const [majors, setMajors] = useState({optionSelected: []});
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
