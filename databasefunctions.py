@@ -3,6 +3,11 @@ from pymongo import MongoClient
 from dotenv import load_dotenv
 import os
 import certifi
+from datetime import date
+
+student_id = 1
+faculty_id = 1
+position_id = 1
 
 def tryLogin(user, isStudent):
     eid = user["eid"]
@@ -39,6 +44,9 @@ def tryLogin(user, isStudent):
 
 
 def storeNewAccountInDB(account):
+    global student_id
+    global faculty_id
+
     eid = account["eid"]
     password = account["password"]
     eid_encrypt = generateEncryption(eid)
@@ -62,8 +70,10 @@ def storeNewAccountInDB(account):
                 "eid" : eid_encrypt,
                 "password" : password_encrypt,
                 "applications" : {},
+                "_id": student_id
             }
             col.insert_one(student)
+            student_id += 1
             return {
                 "error" : False,
             }
@@ -91,8 +101,10 @@ def storeNewAccountInDB(account):
                 "eid" : eid_encrypt,
                 "password" : password_encrypt,
                 "jobs" : {},
+                "_id": faculty_id,
             }
             col.insert_one(faculty)
+            faculty_id += 1
             return {
                 "error" : False,
             }
@@ -121,6 +133,46 @@ def getPositions():
     for doc in col.find():
         positions.append(doc)
     return positions
+
+def addNewPosition(new_position):
+    global position_id
+
+    # connect to DB
+    cert = certifi.where()
+    load_dotenv()
+    client = MongoClient(os.getenv('MONGO_CLIENT'), tlsCAFile=cert)
+    db = client["ut-research-portal"]
+
+    # obtain the faculty member
+    fac_col = db["faculty"]
+    query = {"eid": generateEncryption(new_position["eid"])}
+    fac_doc = fac_col.find_one(query)
+    faculty_name = "Dr. " + fac_doc["fname"] + " " + fac_doc["lname"]
+    job_list = fac_doc["jobs"]
+
+    # add position
+    col = db["positions"]
+    majors = new_position['majors']['optionSelected']
+    majors_list = []
+    for d in majors:
+        majors_list.append(d['value'])
+    new_position['majors'] = majors_list
+    new_position["faculty_member"] = faculty_name
+    new_position["date_posted"] = date.today().strftime("%B %d, %Y")
+    new_position["_id"] = position_id
+    col.insert_one(new_position)
+    job_id = position_id
+    position_id += 1
+
+    # update the faculty to add new job
+    job_list.append(job_id)
+    new_tot = {'$set' : {'jobs' : job_list}}
+    fac_col.update_one(query, new_tot)
+
+    # return success
+    return {
+        "error" : False,
+    }
     
 
 # encrypt EID and password when storing in database

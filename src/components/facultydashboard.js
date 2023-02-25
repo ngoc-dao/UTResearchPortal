@@ -3,12 +3,10 @@ import React, { Component, useEffect, useState } from 'react';
 import { useNavigate, Routes, Route, Outlet } from 'react-router-dom';
 import { Button } from '@mui/material';
 import axios from 'axios';
-// import ResearchPositionComponent from './researchpositioncomponent';
 
 const FacultyDashboard = (props) => {
   const [positions, setPositions] = useState([]);
-  const navigate = useNavigate();         /* used to navigate user upon logout */
-  // const [data, setData] = useState(null)  /* metadata */
+  const navigate = useNavigate();
 
   /* handles user logout */
   function logout() {
@@ -19,16 +17,6 @@ const FacultyDashboard = (props) => {
   function newPosition() {
     navigate('/newposition');
   }
-
-  // useEffect(() => {
-  //   axios.get("/getpositions").then(
-  //       res => {
-  //         const pos = res.data['positions'];
-  //         setPositions(pos);
-  //         console.log(positions);
-  //       }
-  //   )
-  // });
 
       return (
         <div className="App">

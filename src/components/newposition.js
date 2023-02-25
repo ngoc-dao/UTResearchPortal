@@ -22,10 +22,15 @@ const Option = (props) => {
 };
 
 const NewPosition = (props) => {
-  /* names */
+  /* new position fields */
   const [positionName, setPositionName] = useState("");
+  const [labName, setLabName] = useState("");
   const [gpa, setGpa] = useState("");
-  const [state, setState] = useState({optionSelected: null});
+  const [deadline, setDeadline] = useState("");
+  const [additionalQuestions, setAdditionalQuestions] = useState([]);
+  const [newQ, setNewQ] = useState("");
+  const [majors, setMajors] = useState({optionSelected: null});
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const majorOptions = [
@@ -290,17 +295,55 @@ const NewPosition = (props) => {
 
   /* handles user logout */
   function submit() {
-    console.log("GPA = ", gpa);
-    console.log("Position Name = ", positionName);
-    console.log("state = ", state);
-    navigate('/facultydashboard');
+    const pn = positionName;
+    const ln = labName;
+    const gp = gpa;
+    const dl = deadline;
+    const aq = additionalQuestions;
+    const ma = majors;
+
+    if (pn === "" || ln === "" || gp === "" || dl === "") {
+      setError("Please fill out all mandatory fields!");
+      return;
+    }
+
+    const new_position = {
+      "position": pn,
+      "lab_name": ln,
+      "minimum_gpa": gp,
+      "deadline": dl,
+      "additional_questions": aq,
+      "majors": ma,
+      "eid": props.user["eid"],
+      "applicants": [],
+    };
+
+    axios.post("/addnewposition", new_position).then(
+      res => {
+        if (res.data["error"] === true) {
+          setError(res.data["message"]);
+        } else {
+          setError("");
+          console.log("SUCCESSFULLY ADDED NEW POSITION");
+          navigate('/facultydashboard')
+        }
+      }
+    )
   }
 
   function handleChange(selected) {
-    setState({
+    setMajors({
       optionSelected: selected
     });
   };
+
+  function newQuestion() {
+    const q = newQ;
+    const qs = additionalQuestions;
+    qs.push(q);
+    setAdditionalQuestions(qs);
+    setNewQ("");
+  }
 
       return (
         <div className="App">
@@ -320,11 +363,59 @@ const NewPosition = (props) => {
           <br></br>
 
           <TextField 
+            label="Lab Name" 
+            variant="filled" 
+            onChange={(event) => setLabName(event.target.value)}> 
+          </TextField>
+
+          <br></br>
+
+          <TextField 
             label="Minimum GPA" 
             variant="filled" 
             onChange={(event) => setGpa(event.target.value)}> 
           </TextField>
 
+          <br></br>
+
+          <TextField 
+            label="Deadline" 
+            variant="filled" 
+            onChange={(event) => setDeadline(event.target.value)}> 
+          </TextField>
+
+          <br />
+          <br />
+
+          <p>Optional questions will appear here:</p>
+
+          {
+            additionalQuestions.length === 0 ? (
+              <p></p>
+            ) : (
+              additionalQuestions.map((q, index) => (
+                <p><b>Question {index + 1}: </b> {q} </p>
+              ))
+            )
+          }
+
+          <br />
+
+          <TextField 
+            label="Add optional questions" 
+            variant="filled" 
+            onChange={(event) => setNewQ(event.target.value)}> 
+          </TextField>
+          <br />
+          <Button
+            color={'secondary'}
+            variant={'contained'}
+            onClick={newQuestion}
+          >
+            Add Optional Questions
+          </Button>
+
+          <br />
           <br />
 
           <p class='p-2'>Select Majors Below</p>
@@ -346,14 +437,17 @@ const NewPosition = (props) => {
               }}
               onChange={handleChange}
               allowSelectAll={true}
-              value={state.optionSelected}
+              value={majors.optionSelected}
             >
               Select Majors
             </ReactSelect>
           </span>
 
           <br />
+          <br />
 
+          <p class='text-red-500'><b>{error}</b></p>
+            
           <Button
             color={'secondary'}
             variant={'contained'}
@@ -361,6 +455,9 @@ const NewPosition = (props) => {
           > 
             Submit
           </Button>
+
+          <br />
+          <br />
           {/* <Outlet /> */}
         </div>
       );

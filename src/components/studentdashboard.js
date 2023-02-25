@@ -29,6 +29,7 @@ const StudentDashboard = (props) => {
   useEffect(() => {
     axios.get("/getpositions").then(
         res => {
+          console.log(res.data)
           const pos = res.data['positions'];
           setPositions(pos);
           console.log(positions);

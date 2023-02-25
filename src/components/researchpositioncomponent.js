@@ -15,8 +15,8 @@ const ResearchPositionComponent = (props) => (
             {
               props.pos['majors'].length === 0 ? (
                 <h3>All majors</h3>
-              ) : (
-                <h3>Majors: {props.pos['majors'].toString()}</h3>
+              ) : ( 
+                <h3><b>Majors: </b>{props.pos['majors'].toString()}</h3>
               )
             }
 

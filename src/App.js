@@ -65,7 +65,9 @@ function App() {
         <Route 
           path='/newposition'
           element={
-            <NewPosition />
+            <NewPosition
+              user={user} 
+            />
           }>
         </Route>
       </Routes>
