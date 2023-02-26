@@ -3,7 +3,7 @@ import React, { Component, useEffect, useState } from 'react';
 import { useNavigate, Routes, Route, Outlet } from 'react-router-dom';
 import { Button } from '@mui/material';
 
-const ResearchPositionComponent = (props) => (
+const ResearchPositionComponentFaculty = (props) => (
     <div class='flex bg-white shadow-lg m-4 p-4 bg-cyan-100'>
         <div class='align-middle text-xl font-bold'>
             <h1>{props.pos['position']}</h1>
@@ -24,11 +24,15 @@ const ResearchPositionComponent = (props) => (
         </div>
 
         <div class='align-middle'>
-            <Button>
-                Apply
-            </Button>
+            {
+              props.pos['applicants'].length === 0 ? (
+                <h3><b>No applicants</b></h3>
+              ) : ( 
+                <h3><b>Applicants: </b>{props.pos['applicants'].toString()}</h3>
+              )
+            }
         </div>
     </div>
 )
 
-export default ResearchPositionComponent;
+export default ResearchPositionComponentFaculty;

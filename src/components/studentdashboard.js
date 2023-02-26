@@ -3,28 +3,17 @@ import React, { Component, useEffect, useState } from 'react';
 import { useNavigate, Routes, Route, Outlet } from 'react-router-dom';
 import { Button } from '@mui/material';
 import axios from 'axios';
-import ResearchPositionComponent from './researchpositioncomponent';
+import ResearchPositionComponentStudent from './researchpositioncomponentstudent';
 
 const StudentDashboard = (props) => {
   const [positions, setPositions] = useState([]);
   const navigate = useNavigate();         /* used to navigate user upon logout */
-  // const [data, setData] = useState(null)  /* metadata */
 
   /* handles user logout */
   function logout() {
     props.setUser(null);
     navigate('/');
   }
-
-  // useEffect(() => {
-  //   fetch("/datasets").then(
-  //     res => res.json
-  //   ).then(
-  //     data => {
-  //       setData(data)
-  //     }
-  //   )
-  // });
 
   useEffect(() => {
     axios.get("/getpositions").then(
@@ -47,7 +36,7 @@ const StudentDashboard = (props) => {
               <p>Fetching research positions...</p>
             ) : (
               positions.map(pos => (
-                <ResearchPositionComponent pos={pos} />
+                <ResearchPositionComponentStudent pos={pos} />
               ))
             )
           }
@@ -60,6 +49,8 @@ const StudentDashboard = (props) => {
             Logout 
           </Button>
           {/* <Outlet /> */}
+
+          <p class='p-3' />
         </div>
       );
 };

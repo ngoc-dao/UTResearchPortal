@@ -3,6 +3,7 @@ import React, { Component, useEffect, useState } from 'react';
 import { useNavigate, Routes, Route, Outlet } from 'react-router-dom';
 import { Button } from '@mui/material';
 import axios from 'axios';
+import ResearchPositionComponentFaculty from './researchpositioncomponentfaculty';
 
 const FacultyDashboard = (props) => {
   const [positions, setPositions] = useState([]);
@@ -17,6 +18,23 @@ const FacultyDashboard = (props) => {
   function newPosition() {
     navigate('/newposition');
   }
+
+  useEffect(() => {
+    axios.get("/getpositions").then(
+        res => {
+          const pos = res.data['positions'];
+          let faculty_positions = [];
+          for(let i = 0; i < pos.length; i++) {
+            if (pos[i]["eid"] === props.user["eid"]) {
+              faculty_positions.push(pos[i])
+            }
+          }
+
+          console.log(faculty_positions);
+          setPositions(faculty_positions);
+        }
+    )
+  });
 
       return (
         <div className="App">
@@ -34,6 +52,17 @@ const FacultyDashboard = (props) => {
           </Button>
 
           <p class='p-3' />
+          <h2><b>Your Research Positions:</b></h2>
+
+            {
+              positions.length === 0 ? (
+                <p>No Research Positions</p>
+              ) : (
+                positions.map(pos => (
+                  <ResearchPositionComponentFaculty pos={pos} />
+                ))
+              )
+            }
 
           <Button
             color={'secondary'}
@@ -43,6 +72,7 @@ const FacultyDashboard = (props) => {
             Logout
           </Button>
           {/* <Outlet /> */}
+          <p class='p-3'></p>
         </div>
       );
 };
