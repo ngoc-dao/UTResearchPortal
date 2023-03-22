@@ -36,6 +36,9 @@ def tryLogin(user, isStudent):
         }
     return {
         "error" : False,
+        "fname" : doc['fname'],
+        "lname" : doc['lname'],
+        "email" : doc['email']
     }
 
 
@@ -137,6 +140,44 @@ def getPositions():
     for doc in col.find():
         positions.append(doc)
     return positions
+
+def applyToPosition(application):
+    # connect to DB
+    cert = certifi.where()
+    load_dotenv()
+    client = MongoClient(os.getenv('MONGO_CLIENT'), tlsCAFile=cert)
+    db = client["ut-research-portal"]
+
+    # get the position
+    pos_col = db["positions"]
+    pos_query = {"_id" : application["_id"]}
+    pos_doc = pos_col.find_one(pos_query)
+
+    # get the student
+    student_col = db["students"]
+    student_query = {"eid" : generateEncryption(application["eid"])}
+    student_doc = student_col.find_one(student_query)
+
+    # # get the faculty
+    # fac_col = db["faculty"]
+    # fac_eid = pos_doc["eid"]
+    # fac_query = {"eid" : generateEncryption(fac_eid)}
+    # fac_doc = fac_col.find_one(fac_query)
+
+    # update all documents involved
+    applicants = pos_doc["applicants"]
+    applicants.append(student_doc["_id"])
+    set = {'$set' : {'applicants' : applicants}}
+    pos_col.update_one(pos_query, set)
+
+    applications = student_doc["applications"]
+    applications[str(application["_id"])] = application
+    set = {'$set' : {'applications' : applications}}
+    student_col.update_one(student_query, set)
+
+    return {
+        "error" : False
+    }
 
 def addNewPosition(new_position):
     # connect to DB

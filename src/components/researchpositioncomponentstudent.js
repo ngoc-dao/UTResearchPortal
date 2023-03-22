@@ -3,7 +3,9 @@ import React, { Component, useEffect, useState } from 'react';
 import { useNavigate, Routes, Route, Outlet } from 'react-router-dom';
 import { Button } from '@mui/material';
 
-const ResearchPositionComponentStudent = (props) => (
+const ResearchPositionComponentStudent = (props) => {
+  const navigate = useNavigate();
+  return (
     <div class='flex bg-white shadow-lg m-4 p-4 bg-cyan-100'>
         <div class='align-middle text-xl font-bold'>
             <h1>{props.pos['position']}</h1>
@@ -24,11 +26,25 @@ const ResearchPositionComponentStudent = (props) => (
         </div>
 
         <div class='align-middle'>
-            <Button>
+            <Button
+              onClick={() => {
+                navigate('/apply', {
+                  state: {
+                    additional_questions: props.pos['additional_questions'],
+                    position: props.pos['position'],
+                    lab_name: props.pos['lab_name'],
+                    _id: props.pos['_id'],
+                    faculty_member: props.pos['faculty_member']
+                  }
+                })
+              }}
+            >
                 Apply
             </Button>
         </div>
     </div>
-)
+
+  )
+}
 
 export default ResearchPositionComponentStudent;
