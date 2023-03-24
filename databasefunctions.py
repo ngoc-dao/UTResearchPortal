@@ -70,7 +70,7 @@ def storeNewAccountInDB(account):
                 "email" : account["email"],
                 "eid" : eid_encrypt,
                 "password" : password_encrypt,
-                "applications" : {},
+                "applications" : [],
                 "_id": student_id
             }
             col.insert_one(student)
@@ -165,15 +165,20 @@ def applyToPosition(application):
     # fac_doc = fac_col.find_one(fac_query)
 
     # update all documents involved
-    applicants = pos_doc["applicants"]
-    applicants.append(student_doc["_id"])
-    set = {'$set' : {'applicants' : applicants}}
-    pos_col.update_one(pos_query, set)
-
     applications = student_doc["applications"]
-    applications[str(application["_id"])] = application
+    if (application["_id"] in applications):
+        return {
+            "error" : True,
+            "message" : "You have already applied for this position"
+        }
+    applications.append(application["_id"])
     set = {'$set' : {'applications' : applications}}
     student_col.update_one(student_query, set)
+
+    applicants = pos_doc["applicants"]
+    applicants.append(application)
+    set = {'$set' : {'applicants' : applicants}}
+    pos_col.update_one(pos_query, set)
 
     return {
         "error" : False

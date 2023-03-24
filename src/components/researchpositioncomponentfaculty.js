@@ -1,9 +1,22 @@
 /* import statements */
 import React, { Component, useEffect, useState } from 'react';
-import { useNavigate, Routes, Route, Outlet } from 'react-router-dom';
+import { useNavigate, Routes, Route, Outlet, Navigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 
-const ResearchPositionComponentFaculty = (props) => (
+const ResearchPositionComponentFaculty = (props) => {
+  const navigate = useNavigate();
+
+  function viewApps() {
+    navigate('/viewapplications', {
+      state: {
+        "position" : props.pos["position"],
+        "lab_name" : props.pos["lab_name"],
+        "applicants" : props.pos["applicants"],
+      }
+    })
+  }
+
+  return (
     <div class='flex bg-white shadow-lg m-4 p-4 bg-cyan-100'>
         <div class='align-middle text-xl font-bold'>
             <h1>{props.pos['position']}</h1>
@@ -28,11 +41,13 @@ const ResearchPositionComponentFaculty = (props) => (
               props.pos['applicants'].length === 0 ? (
                 <h3><b>No applicants</b></h3>
               ) : ( 
-                <h3><b>Applicants: </b>{props.pos['applicants'].toString()}</h3>
+                // <h3><b>Applicants: </b>{props.pos['applicants'].toString()}</h3>
+                <Button onClick={viewApps}> View Applications </Button>
               )
             }
         </div>
     </div>
-)
+  )
+}
 
 export default ResearchPositionComponentFaculty;
