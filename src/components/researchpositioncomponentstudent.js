@@ -26,21 +26,27 @@ const ResearchPositionComponentStudent = (props) => {
         </div>
 
         <div class='align-middle'>
-            <Button
-              onClick={() => {
-                navigate('/apply', {
-                  state: {
-                    additional_questions: props.pos['additional_questions'],
-                    position: props.pos['position'],
-                    lab_name: props.pos['lab_name'],
-                    _id: props.pos['_id'],
-                    faculty_member: props.pos['faculty_member']
-                  }
-                })
-              }}
-            >
-                Apply
-            </Button>
+            {
+              props.pos['applied'] ? (
+                <Button
+                  onClick={() => {
+                    navigate('/apply', {
+                      state: {
+                        additional_questions: props.pos['additional_questions'],
+                        position: props.pos['position'],
+                        lab_name: props.pos['lab_name'],
+                        _id: props.pos['_id'],
+                        faculty_member: props.pos['faculty_member']
+                      }
+                    })
+                  }}
+                >
+                  Apply
+                </Button>
+              ) : (
+                <p><b>Applied</b></p>
+              )
+            }
         </div>
     </div>
 

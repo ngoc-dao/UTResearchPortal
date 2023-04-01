@@ -19,8 +19,22 @@ const StudentDashboard = (props) => {
     axios.get("/getpositions").then(
         res => {
           console.log(res.data)
+          console.log(props);
           const pos = res.data['positions'];
-          setPositions(pos);
+          let ppos = pos;
+          let b = false;
+
+          for (let i = 0; i < pos.length; i++) {
+            b = false;
+            let p = pos[i]['applicants'];
+            if (p.includes(props.user.eid)) {
+              b = true;
+            }
+
+            ppos[i]["applied"] = b;
+          }
+
+          setPositions(ppos);
           console.log(positions);
         }
     )
