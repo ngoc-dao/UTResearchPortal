@@ -33,6 +33,9 @@ const FacultyLogin = (props) => {
           } else {
             setError("");
             // try this?
+            user["fname"] = res.data["fname"]
+            user["lname"] = res.data["lname"]
+            user["email"] = res.data["email"]
             localStorage.setItem('token-info', JSON.stringify(user));
             console.log("LOGIN SUCCESS");
 

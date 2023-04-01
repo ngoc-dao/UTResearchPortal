@@ -8,6 +8,8 @@ import FacultyLogin from './components/facultylogin'
 import StudentDashboard from './components/studentdashboard';
 import FacultyDashboard from './components/facultydashboard';
 import NewPosition from './components/newposition';
+import Apply from './components/apply';
+import ViewApplications from './components/viewapplications';
 
 
 function App() {
@@ -66,6 +68,24 @@ function App() {
           path='/newposition'
           element={
             <NewPosition
+              user={user} 
+            />
+          }>
+        </Route>
+
+        <Route 
+          path='/apply'
+          element={
+            <Apply
+              user={user} 
+            />
+          }>
+        </Route>
+
+        <Route 
+          path='/viewapplications'
+          element={
+            <ViewApplications
               user={user} 
             />
           }>
