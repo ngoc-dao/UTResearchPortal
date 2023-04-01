@@ -27,7 +27,7 @@ const ResearchPositionComponentStudent = (props) => {
 
         <div class='align-middle'>
             {
-              props.pos['applied'] ? (
+              props.pos['applied'] === false ? (
                 <Button
                   onClick={() => {
                     navigate('/apply', {

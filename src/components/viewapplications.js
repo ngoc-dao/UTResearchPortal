@@ -8,7 +8,8 @@ import ResearchPositionComponentFaculty from './researchpositioncomponentfaculty
 const ApplicationView = (props) => {
     return (
         <div class='bg-white shadow-lg m-4 p-4 bg-cyan-100'>
-            <h1 class='text-3xl'> <b> {props.applicant.fname} {props.applicant.lname} </b> </h1>
+            <h1 class='text-3xl'> <b> {props.applicant.fname} {props.applicant.lname} ({props.applicant.eid}) </b> </h1>
+            <p> <b> Email: </b> {props.applicant.email} </p>
             <p> <b> Major: </b> {props.applicant.major} </p>
             <p> <b> GPA: </b> {props.applicant.gpa} </p>
             {

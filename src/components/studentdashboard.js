@@ -18,8 +18,8 @@ const StudentDashboard = (props) => {
   useEffect(() => {
     axios.get("/getpositions").then(
         res => {
-          console.log(res.data)
-          console.log(props);
+          // console.log(res.data)
+          // console.log(props);
           const pos = res.data['positions'];
           let ppos = pos;
           let b = false;
@@ -27,8 +27,12 @@ const StudentDashboard = (props) => {
           for (let i = 0; i < pos.length; i++) {
             b = false;
             let p = pos[i]['applicants'];
-            if (p.includes(props.user.eid)) {
-              b = true;
+            // console.log("p = ", p);
+            for (let j = 0; j < p.length; j++) {
+              if (p[j]['eid'] === props.user['eid']) {
+                b = true;
+                break;
+              }
             }
 
             ppos[i]["applied"] = b;
