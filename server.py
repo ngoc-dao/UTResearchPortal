@@ -6,7 +6,7 @@ import accountcreation as ac
 import databasefunctions as df
 
 # initialize Flask application
-app = Flask(__name__, static_folder="front_end/build", static_url_path="/")
+app = Flask(__name__, static_folder="build", static_url_path="/")
 
 # render html file
 @app.route("/")
