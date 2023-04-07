@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Button, TextField } from "@mui/material";
+import { SyncLoader } from "react-spinners";
 
 const styles = {
   container: {
@@ -41,6 +42,9 @@ const styles = {
     marginTop: "1rem",
     width: "30%",
     borderRadius: ".5rem",
+    height: "70vh",
+    justifyContent: "center",
+    alignItems: "center",
   },
   signUpTitle: {
     fontSize: "1.5rem",
@@ -52,6 +56,7 @@ const styles = {
     marginBottom: "10px",
     background: "#f5f5f5",
     fontFamily: "Open Sans",
+    width: "100%",
   },
   selectField: {
     width: "100%",
@@ -77,6 +82,11 @@ const styles = {
   error: {
     color: "red",
   },
+  success: {
+    color: "green",
+    fontSize: "1.5rem",
+    fontFamily: "Open Sans",
+  },
 };
 
 const Home = () => {
@@ -88,6 +98,8 @@ const Home = () => {
   const [password, setPassword] = useState();
   const [userType, setUserType] = useState("Student");
   const [error, setError] = useState();
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const navigate = useNavigate(); /* used to navigate user upon login */
 
@@ -97,6 +109,11 @@ const Home = () => {
 
   function facultyLogin() {
     navigate("/facultylogin");
+  }
+
+  function handleSubmit() {
+    setLoading(true);
+    accountCreation();
   }
 
   function accountCreation() {
@@ -135,6 +152,8 @@ const Home = () => {
         }
       } else {
         setError("");
+        setSuccess(true);
+        setLoading(false);
         // TODO - navigate to user dashboard OR ask user to sign in with new account
       }
     });
@@ -185,55 +204,69 @@ const Home = () => {
           style={{ width: "40%", display: "inline", margin: "2rem 0 0 10rem" }}
         />
         <div style={styles.signUpContainer}>
-          <h2 style={styles.signUpTitle}>New? Sign Up Below!</h2>
-          <TextField
-            label="First Name"
-            variant="filled"
-            style={styles.formField}
-            onChange={(event) => setFName(event.target.value)}
-          />
-          <TextField
-            label="Last Name"
-            variant="filled"
-            style={styles.formField}
-            onChange={(event) => setLName(event.target.value)}
-          />
-          <TextField
-            label="Email"
-            variant="filled"
-            style={styles.formField}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-          <TextField
-            label="EID"
-            variant="filled"
-            style={styles.formField}
-            onChange={(event) => setEid(event.target.value)}
-          />
-          <TextField
-            label="Password"
-            variant="filled"
-            type="password"
-            style={styles.formField}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-          <select
-            value={userType}
-            onChange={(event) => setUserType(event.target.value)}
-            style={styles.selectField}
-          >
-            <option value="Student">Student</option>
-            <option value="Faculty">Faculty</option>
-          </select>
-          {error && <p style={styles.error}>{error}</p>}
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={accountCreation}
-            style={styles.button}
-          >
-            Create Account
-          </Button>
+          {loading ? (
+            <SyncLoader color="#bf5700" />
+          ) : (
+            <>
+              {success ? (
+                <>
+                  <h1 style={styles.success}>Account successfully created!</h1>
+                </>
+              ) : (
+                <>
+                  <h2 style={styles.signUpTitle}>New? Sign Up Below!</h2>
+                  <TextField
+                    label="First Name"
+                    variant="filled"
+                    style={styles.formField}
+                    onChange={(event) => setFName(event.target.value)}
+                  />
+                  <TextField
+                    label="Last Name"
+                    variant="filled"
+                    style={styles.formField}
+                    onChange={(event) => setLName(event.target.value)}
+                  />
+                  <TextField
+                    label="Email"
+                    variant="filled"
+                    style={styles.formField}
+                    onChange={(event) => setEmail(event.target.value)}
+                  />
+                  <TextField
+                    label="EID"
+                    variant="filled"
+                    style={styles.formField}
+                    onChange={(event) => setEid(event.target.value)}
+                  />
+                  <TextField
+                    label="Password"
+                    variant="filled"
+                    type="password"
+                    style={styles.formField}
+                    onChange={(event) => setPassword(event.target.value)}
+                  />
+                  <select
+                    value={userType}
+                    onChange={(event) => setUserType(event.target.value)}
+                    style={styles.selectField}
+                  >
+                    <option value="Student">Student</option>
+                    <option value="Faculty">Faculty</option>
+                  </select>
+                  {error && <p style={styles.error}>{error}</p>}
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    onClick={handleSubmit}
+                    style={styles.button}
+                  >
+                    Create Account
+                  </Button>
+                </>
+              )}
+            </>
+          )}
         </div>
       </div>
     </div>
