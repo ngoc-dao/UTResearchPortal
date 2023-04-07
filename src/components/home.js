@@ -9,13 +9,14 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#f1f1f1",
+    backgroundColor: "#bf5700",//"#f1f1f1",
     padding: "2rem",
   },
   title: {
     fontSize: "2rem",
-    fontWeight: "bold",
-    fontFamily: "sans-serif",
+    color: "#ffffff",
+    //fontWeight: "bold",
+    fontFamily: "GT Sectra", //"serif",
     margin: 0,
   },
   subtitle: {
