@@ -5,13 +5,33 @@ import axios from "axios";
 import { Button, TextField } from "@mui/material";
 
 const styles = {
+  logo: {
+    backgroundColor: "transparent",
+    border: "none",
+    outline: "none",
+    cursor: "pointer",
+    width: "20%",
+  },
   container: {
-    display: "flex",
+    display: "block",
     justifyContent: "center",
     alignItems: "center",
     height: "100vh",
+    fontFamily: "Open Sans",
+  },
+  outerFormContainer: {
+    padding: "20px",
+    display: "flex",
+    justifyContent: "center",
+  },
+  innerFormContainer: {
+    width: "50%",
+    background: "#f5f5f5",
+    padding: "20px",
+    borderRadius: "1rem",
   },
   button: {
+    fontFamily: "Open Sans",
     display: "inline-block",
     backgroundColor: "#d35400",
     color: "#fff",
@@ -22,9 +42,10 @@ const styles = {
     textDecoration: "none",
     boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.3)",
     transition: "all 0.3s ease",
-    width:'100%'
+    width: "100%",
   },
   button2: {
+    fontFamily: "Open Sans",
     display: "inline-block",
     backgroundColor: "#808080",
     color: "#fff",
@@ -35,8 +56,8 @@ const styles = {
     textDecoration: "none",
     boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.3)",
     transition: "all 0.3s ease",
-    width:'100%',
-    marginTop:'.5rem'
+    width: "100%",
+    marginTop: ".5rem",
   },
 };
 
@@ -86,45 +107,52 @@ const StudentLogin = (props) => {
 
   return (
     <div className="App" style={styles.container}>
-      <div style={{ backgroundColor: "#fff", padding: "20px" }}>
-        <h1 class="text-4xl p-5 font-semibold"> Student Sign In </h1>
-        <p class="text-1xl p-3 italic">
-          {" "}
-          If you have a student account, please login here.{" "}
-        </p>
-        <TextField
-          label="EID"
-          variant="filled"
-          onChange={(event) => setEid(event.target.value)}
-          style={{width:'100%'}}
-        ></TextField>
-        <p></p>
-        <TextField
-          label="Password"
-          variant="filled"
-          type="password"
-          onChange={(event) => setPassword(event.target.value)}
-          style={{width:'100%'}}
-        ></TextField>
-        <p class="p-3"></p>
-        <Button
-          color="primary"
-          onClick={tryLogin}
-          variant={"contained"}
-          style={styles.button}
-        >
-          Submit
-        </Button>
-        <Button
-          color="primary"
-          onClick={() => navigate("/")}
-          variant={"contained"}
-          style={styles.button2}
-        >
-          Return to Home
-        </Button>
-        <p></p>
-        <p> {error} </p>
+      <div>
+        <button style={styles.logo} onClick={() => navigate("/")}>
+          <img src="RGB_university_primary.png" alt="UT Research Portal" />{" "}
+        </button>
+      </div>
+      <div style={styles.outerFormContainer}>
+        <div style={styles.innerFormContainer}>
+          <h1 class="text-4xl p-5 font-semibold"> Student Sign In </h1>
+          <p class="text-1xl p-3 italic">
+            {" "}
+            If you have a student account, please login here.{" "}
+          </p>
+          <TextField
+            label="EID"
+            variant="filled"
+            onChange={(event) => setEid(event.target.value)}
+            style={{ width: "100%" }}
+          ></TextField>
+          <p></p>
+          <TextField
+            label="Password"
+            variant="filled"
+            type="password"
+            onChange={(event) => setPassword(event.target.value)}
+            style={{ width: "100%" }}
+          ></TextField>
+          <p class="p-3"></p>
+          <Button
+            color="primary"
+            onClick={tryLogin}
+            variant={"contained"}
+            style={styles.button}
+          >
+            Submit
+          </Button>
+          <Button
+            color="primary"
+            onClick={() => navigate("/")}
+            variant={"contained"}
+            style={styles.button2}
+          >
+            Return to Home
+          </Button>
+          <p></p>
+          <p> {error} </p>
+        </div>
       </div>
     </div>
   );

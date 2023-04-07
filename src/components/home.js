@@ -9,15 +9,15 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#bf5700",//"#f1f1f1",
-    padding: "2rem",
+    backgroundColor: "#f5f5f5",
+    padding: "0 2rem 0 0",
   },
   title: {
-    fontSize: "2rem",
-    color: "#ffffff",
-    //fontWeight: "bold",
-    fontFamily: "GT Sectra", //"serif",
+    fontSize: "3rem",
+    fontWeight: "bold",
+    fontFamily: "Open Sans",
     margin: 0,
+    color: "white",
   },
   subtitle: {
     fontSize: "1rem",
@@ -33,38 +33,44 @@ const styles = {
     display: "inline-flex",
     flexDirection: "column",
     padding: "20px",
-    fontFamily: "sans-serif",
-    backgroundColor: "#fff",
+    backgroundColor: "#f5f5f5",
     textAlign: "left",
     position: "fixed",
     right: 0,
     marginRight: "1rem",
     marginTop: "1rem",
+    width: "30%",
+    borderRadius: ".5rem",
   },
   signUpTitle: {
     fontSize: "1.5rem",
     fontWeight: "bold",
+    fontFamily: "Open Sans",
     marginBottom: "10px",
   },
   formField: {
     marginBottom: "10px",
+    background: "#f5f5f5",
+    fontFamily: "Open Sans",
   },
   selectField: {
     width: "100%",
     marginBottom: "10px",
     padding: "5px",
     border: "1px solid black",
+    fontFamily: "Open Sans",
     borderRadius: "5px",
   },
   button: {
     display: "inline-block",
-    backgroundColor: "#d35400",
+    backgroundColor: "#bf5700",
     color: "#fff",
     textTransform: "initial",
-    fontSize: "16px",
+    fontSize: "14px",
     fontWeight: "bold",
     borderRadius: "5px",
     textDecoration: "none",
+    fontFamily: "Open Sans",
     boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.3)",
     transition: "all 0.3s ease",
   },
@@ -137,7 +143,7 @@ const Home = () => {
   return (
     <div>
       <div style={styles.container}>
-        <h1 style={styles.title}>UT Research Portal</h1>
+        <img src="UT_tagline.png" style={{ width: "30%" }} />
         <div style={styles.buttonContainer}>
           <Button
             color="primary"
@@ -161,56 +167,74 @@ const Home = () => {
         Sign in to the portal by first selecting whether you are a student or
         faculty member
       </p> */}
-      <div style={styles.signUpContainer}>
-        <h2 style={styles.signUpTitle}>New? Sign Up Below!</h2>
-        <TextField
-          label="First Name"
-          variant="filled"
-          style={styles.formField}
-          onChange={(event) => setFName(event.target.value)}
+
+      <div
+        className="center-div"
+        style={{
+          background: "#333333",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <h1 style={styles.title}>UT Research Portal</h1>
+      </div>
+      <div>
+        <img
+          src="eer.jpg"
+          style={{ width: "40%", display: "inline", margin: "2rem 0 0 10rem" }}
         />
-        <TextField
-          label="Last Name"
-          variant="filled"
-          style={styles.formField}
-          onChange={(event) => setLName(event.target.value)}
-        />
-        <TextField
-          label="Email"
-          variant="filled"
-          style={styles.formField}
-          onChange={(event) => setEmail(event.target.value)}
-        />
-        <TextField
-          label="EID"
-          variant="filled"
-          style={styles.formField}
-          onChange={(event) => setEid(event.target.value)}
-        />
-        <TextField
-          label="Password"
-          variant="filled"
-          type="password"
-          style={styles.formField}
-          oonChange={(event) => setPassword(event.target.value)}
-        />
-        <select
-          value={userType}
-          onChange={(event) => setUserType(event.target.value)}
-          style={styles.formField}
-        >
-          <option value="Student">Student</option>
-          <option value="Faculty">Faculty</option>
-        </select>
-        {error && <p style={styles.error}>{error}</p>}
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={accountCreation}
-          style={styles.button}
-        >
-          Create Account
-        </Button>
+        <div style={styles.signUpContainer}>
+          <h2 style={styles.signUpTitle}>New? Sign Up Below!</h2>
+          <TextField
+            label="First Name"
+            variant="filled"
+            style={styles.formField}
+            onChange={(event) => setFName(event.target.value)}
+          />
+          <TextField
+            label="Last Name"
+            variant="filled"
+            style={styles.formField}
+            onChange={(event) => setLName(event.target.value)}
+          />
+          <TextField
+            label="Email"
+            variant="filled"
+            style={styles.formField}
+            onChange={(event) => setEmail(event.target.value)}
+          />
+          <TextField
+            label="EID"
+            variant="filled"
+            style={styles.formField}
+            onChange={(event) => setEid(event.target.value)}
+          />
+          <TextField
+            label="Password"
+            variant="filled"
+            type="password"
+            style={styles.formField}
+            oonChange={(event) => setPassword(event.target.value)}
+          />
+          <select
+            value={userType}
+            onChange={(event) => setUserType(event.target.value)}
+            style={styles.selectField}
+          >
+            <option value="Student">Student</option>
+            <option value="Faculty">Faculty</option>
+          </select>
+          {error && <p style={styles.error}>{error}</p>}
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={accountCreation}
+            style={styles.button}
+          >
+            Create Account
+          </Button>
+        </div>
       </div>
     </div>
   );
