@@ -138,6 +138,7 @@ def getPositions():
     # return all positions
     positions = []
     for doc in col.find():
+        doc["_id"] = str(doc["_id"])
         positions.append(doc)
     return positions
 

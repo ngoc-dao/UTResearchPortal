@@ -215,7 +215,7 @@ const Home = () => {
             variant="filled"
             type="password"
             style={styles.formField}
-            oonChange={(event) => setPassword(event.target.value)}
+            onChange={(event) => setPassword(event.target.value)}
           />
           <select
             value={userType}
