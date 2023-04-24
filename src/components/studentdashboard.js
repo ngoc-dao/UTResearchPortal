@@ -5,6 +5,7 @@ import { Button } from "@mui/material";
 import axios from "axios";
 import SearchBar from "./searchbar";
 import ResearchPositionComponentStudent from "./researchpositioncomponentstudent";
+import Navbar from "./navbar";
 
 const styles = {
   logo: {
@@ -81,39 +82,8 @@ const StudentDashboard = (props) => {
 
   return (
     <div className="App">
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          background:'#343541',
-        }}
-      >
-        <div style={{ marginRight: "auto", display: "flex" }}>
-          <button style={styles.logo}>
-            <img src="RGB_university_primary.png" alt="UT Research Portal" />{" "}
-          </button>
-        </div>
-        <div
-          style={{
-            marginLeft: "auto",
-            display: "contents",
-            marginRight: "1rem",
-          }}
-        >
-          <h1 style={styles.welcome}> Welcome {props.user["fname"]} </h1>
-          <Button
-            color={"secondary"}
-            variant={"contained"}
-            onClick={logout}
-            style={styles.button}
-          >
-            Logout
-          </Button>
-        </div>
-      </div>
       {/* <Navbars /> */}
-      {positions.length !== 0 && <SearchBar placeholder="Search for a position" data={positions} />}
+      {positions.length !== 0 && <SearchBar placeholder="Search for a position" data={positions} student={true} />}
       
       {/* <Outlet /> */}
       <p class="p-3" />

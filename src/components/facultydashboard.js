@@ -18,6 +18,7 @@ const styles = {
     fontSize: "1.5rem",
     fontFamily: "Open Sans",
     color: "white",
+    marginBottom: "2rem"
   },
   subtitle: {
     fontSize: "1rem",
@@ -77,37 +78,6 @@ const FacultyDashboard = (props) => {
 
   return (
     <div className="App">
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          background: "#343541",
-        }}
-      >
-        <div style={{ marginRight: "auto", display: "flex" }}>
-          <button style={styles.logo}>
-            <img src="RGB_university_primary.png" alt="UT Research Portal" />{" "}
-          </button>
-        </div>
-        <div
-          style={{
-            marginLeft: "auto",
-            display: "contents",
-            marginRight: "1rem",
-          }}
-        >
-          <h1 style={styles.welcome}> Welcome {props.user["fname"]} </h1>
-          <Button
-            color={"secondary"}
-            variant={"contained"}
-            onClick={logout}
-            style={styles.button}
-          >
-            Logout
-          </Button>
-        </div>
-      </div>
       {/* <Navbars /> */}
       <div style={{ paddingTop: "1rem" }}>
         <Button onClick={newPosition} style={styles.button}>

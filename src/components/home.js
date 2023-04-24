@@ -86,6 +86,7 @@ const styles = {
     color: "green",
     fontSize: "1.5rem",
     fontFamily: "Open Sans",
+    marginBottom: "1rem"
   },
 };
 
@@ -111,7 +112,8 @@ const Home = () => {
     navigate("/facultylogin");
   }
 
-  function handleSubmit() {const fn = fname;
+  function handleSubmit() {
+    const fn = fname;
     const ln = lname;
     const em = email;
     const ei = eid;
@@ -226,6 +228,25 @@ const Home = () => {
               {success ? (
                 <>
                   <h1 style={styles.success}>Account successfully created!</h1>
+                  {userType === "Student" ? (
+                    <Button
+                      color="primary"
+                      onClick={studentLogin}
+                      variant="contained"
+                      style={styles.button}
+                    >
+                      Log in here
+                    </Button>
+                  ) : (
+                    <Button
+                      color="primary"
+                      onClick={facultyLogin}
+                      variant="contained"
+                      style={styles.button}
+                    >
+                      Log in here
+                    </Button>
+                  )}
                 </>
               ) : (
                 <>

@@ -151,8 +151,10 @@ def applyToPosition(application):
 
     # get the position
     pos_col = db["positions"]
-    pos_query = {"_id" : application["_id"]}
+    pos_query = {"_id" : int(application["_id"])}
     pos_doc = pos_col.find_one(pos_query)
+
+    print(pos_col.find_one({"_id" : int(application["_id"])}))
 
     # get the student
     student_col = db["students"]

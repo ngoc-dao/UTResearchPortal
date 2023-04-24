@@ -3,7 +3,7 @@ import "../searchbar.css";
 import ResearchPositionComponentStudent from "./researchpositioncomponentstudent";
 import ResearchPositionComponentFaculty from "./researchpositioncomponentfaculty";
 
-function SearchBar({ placeholder, data }) {
+function SearchBar({ placeholder, data, student }) {
   const [filteredData, setFilteredData] = useState(data);
   const [wordEntered, setWordEntered] = useState("");
 
@@ -56,7 +56,25 @@ function SearchBar({ placeholder, data }) {
         </button>
       </div>
       <div className="centered">
-        {filteredData.length === 0 ? (
+        {student ? (
+          filteredData.length === 0 ? (
+            <h1
+              style={{
+                fontSize: "3rem",
+                fontWeight: "bold",
+                fontFamily: "Open Sans",
+                margin: 0,
+                color: "white",
+              }}
+            >
+              No research positions...
+            </h1>
+          ) : (
+            filteredData.map((pos) => (
+              <ResearchPositionComponentStudent pos={pos} />
+            ))
+          )
+        ) : filteredData.length === 0 ? (
           <h1
             style={{
               fontSize: "3rem",

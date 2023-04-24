@@ -36,7 +36,7 @@ const styles = {
     fontFamily: "Open Sans",
     boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.3)",
     transition: "all 0.3s ease",
-    marginRight: "2rem",
+    width: "50%"
   },
   centered: {
     position: "absolute",
@@ -395,37 +395,6 @@ const NewPosition = (props) => {
 
   return (
     <div className="App">
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          background: "#343541",
-        }}
-      >
-        <div style={{ marginRight: "auto", display: "flex" }}>
-          <button style={styles.logo}>
-            <img src="RGB_university_primary.png" alt="UT Research Portal" />{" "}
-          </button>
-        </div>
-        <div
-          style={{
-            marginLeft: "auto",
-            display: "contents",
-            marginRight: "1rem",
-          }}
-        >
-          <h1 style={styles.subtitle}> Welcome {props.user["fname"]} </h1>
-          <Button
-            color={"secondary"}
-            variant={"contained"}
-            onClick={logout}
-            style={styles.button}
-          >
-            Logout
-          </Button>
-        </div>
-      </div>
       {/* <Navbars /> */}
       <h1 style={styles.welcome}>Add a Research Position</h1>
 
@@ -443,7 +412,7 @@ const NewPosition = (props) => {
         style={{
           /* set the width and height of the div */
           width: "25rem",
-          height: "32rem",
+          height: "fitContent",
           /* center the div horizontally and vertically */
           margin: "auto",
           background: "white",
