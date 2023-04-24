@@ -111,7 +111,22 @@ const Home = () => {
     navigate("/facultylogin");
   }
 
-  function handleSubmit() {
+  function handleSubmit() {const fn = fname;
+    const ln = lname;
+    const em = email;
+    const ei = eid;
+    const ps = password;
+    const us = userType;
+
+    if (!fn || !ln || !em || !ei || !ps) {
+      setError("Please fill out all fields!");
+      return;
+    }
+
+    if (ps.length < 6) {
+      setError("Please ensure your password is atleast 6 characters!");
+      return;
+    }
     setLoading(true);
     accountCreation();
   }

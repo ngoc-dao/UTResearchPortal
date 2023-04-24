@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../searchbar.css";
 import ResearchPositionComponentStudent from "./researchpositioncomponentstudent";
+import ResearchPositionComponentFaculty from "./researchpositioncomponentfaculty";
 
 function SearchBar({ placeholder, data }) {
   const [filteredData, setFilteredData] = useState(data);
@@ -69,7 +70,7 @@ function SearchBar({ placeholder, data }) {
           </h1>
         ) : (
           filteredData.map((pos) => (
-            <ResearchPositionComponentStudent pos={pos} />
+            <ResearchPositionComponentFaculty pos={pos} />
           ))
         )}
       </div>

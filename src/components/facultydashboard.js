@@ -3,6 +3,7 @@ import React, { Component, useEffect, useState } from "react";
 import { useNavigate, Routes, Route, Outlet } from "react-router-dom";
 import { Button } from "@mui/material";
 import axios from "axios";
+import SearchBar from "./searchbar";
 import ResearchPositionComponentFaculty from "./researchpositioncomponentfaculty";
 
 const styles = {
@@ -118,12 +119,12 @@ const FacultyDashboard = (props) => {
       <h1 style={styles.welcome}>
         <b>Your Research Positions</b>
       </h1>
-
-      {positions.length === 0 ? (
+      {positions.length !== 0 && <SearchBar placeholder="Search for a position" data={positions} />}
+      {/* {positions.length === 0 ? (
         <h1 style={styles.subtitle}>No Research Positions</h1>
       ) : (
         positions.map((pos) => <ResearchPositionComponentFaculty pos={pos} />)
-      )}
+      )} */}
       {/* <Outlet /> */}
       <p class="p-3"></p>
     </div>
